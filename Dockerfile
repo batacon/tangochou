@@ -1,6 +1,15 @@
-FROM ruby:3.2.2
+FROM ruby:3.2.2-alpine
 
-RUN apt update -qq && apt install -y postgresql-client build-essential libpq-dev nodejs
+RUN apk add --no-cache \
+  bash \
+  postgresql-client \
+  postgresql-dev \
+  nodejs \
+  tzdata \
+  build-base \
+  libxml2-dev \
+  libxslt-dev
+
 RUN mkdir /tangochou
 WORKDIR /tangochou
 
