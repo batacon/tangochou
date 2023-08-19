@@ -4,8 +4,8 @@
   <% end %>
 
   <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Cards</h1>
-    <%= link_to 'New card', new_card_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <h1 class="font-bold text-4xl"><%= @deck.name %>デッキのカード一覧</h1>
+    <%= link_to 'New card', new_deck_card_path(@deck), class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
   </div>
 
   <div id="cards" class="min-w-full">

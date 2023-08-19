@@ -1,4 +1,4 @@
-<%= form_with(model: card, class: "contents") do |form| %>
+<%= form_with(model: [@deck, card], class: "contents") do |form| %>
   <% if card.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(card.errors.count, "error") %> prohibited this card from being saved:</h2>
@@ -12,11 +12,6 @@
   <% end %>
 
   <div class="my-5">
-    <%= form.label :deck_id %>
-    <%= form.text_field :deck_id, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
     <%= form.label :front_text %>
     <%= form.text_area :front_text, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
@@ -24,16 +19,6 @@
   <div class="my-5">
     <%= form.label :back_text %>
     <%= form.text_area :back_text, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :last_done_at %>
-    <%= form.date_field :last_done_at, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
-  </div>
-
-  <div class="my-5">
-    <%= form.label :done_count %>
-    <%= form.number_field :done_count, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
   </div>
 
   <div class="inline">

@@ -1,9 +1,9 @@
 class DecksController < ApplicationController
-  before_action :set_deck, only: %i[ show edit update destroy ]
+  before_action :set_deck, only: %i[show edit update destroy]
 
   # GET /decks or /decks.json
   def index
-    @decks = Deck.all
+    @decks = current_user.decks
   end
 
   # GET /decks/1 or /decks/1.json
@@ -23,27 +23,20 @@ class DecksController < ApplicationController
   def create
     @deck = Deck.new(deck_params)
 
-    respond_to do |format|
-      if @deck.save
-        format.html { redirect_to deck_url(@deck), notice: "Deck was successfully created." }
-        format.json { render :show, status: :created, location: @deck }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @deck.errors, status: :unprocessable_entity }
-      end
+    if @deck.save
+      redirect_to deck_url(@deck), notice: "Deck was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /decks/1 or /decks/1.json
   def update
-    respond_to do |format|
-      if @deck.update(deck_params)
-        format.html { redirect_to deck_url(@deck), notice: "Deck was successfully updated." }
-        format.json { render :show, status: :ok, location: @deck }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @deck.errors, status: :unprocessable_entity }
-      end
+    if @deck.update(deck_params)
+      redirect_to deck_url(@deck), notice: "Deck was successfully updated."
+      format.json { render :show, status: :ok, location: @deck }
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -51,10 +44,7 @@ class DecksController < ApplicationController
   def destroy
     @deck.destroy
 
-    respond_to do |format|
-      format.html { redirect_to decks_url, notice: "Deck was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to decks_url, notice: "Deck was successfully destroyed."
   end
 
   private

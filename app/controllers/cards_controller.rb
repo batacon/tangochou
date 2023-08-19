@@ -1,9 +1,10 @@
 class CardsController < ApplicationController
+  before_action :set_deck
   before_action :set_card, only: %i[ show edit update destroy ]
 
   # GET /cards or /cards.json
   def index
-    @cards = Card.all
+    @cards = @deck.cards
   end
 
   # GET /cards/1 or /cards/1.json
@@ -23,27 +24,19 @@ class CardsController < ApplicationController
   def create
     @card = Card.new(card_params)
 
-    respond_to do |format|
-      if @card.save
-        format.html { redirect_to card_url(@card), notice: "Card was successfully created." }
-        format.json { render :show, status: :created, location: @card }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @card.errors, status: :unprocessable_entity }
-      end
+    if @card.save
+      redirect_to card_url(@card), notice: "Card was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /cards/1 or /cards/1.json
   def update
-    respond_to do |format|
-      if @card.update(card_params)
-        format.html { redirect_to card_url(@card), notice: "Card was successfully updated." }
-        format.json { render :show, status: :ok, location: @card }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @card.errors, status: :unprocessable_entity }
-      end
+    if @card.update(card_params)
+      redirect_to card_url(@card), notice: "Card was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -51,20 +44,22 @@ class CardsController < ApplicationController
   def destroy
     @card.destroy
 
-    respond_to do |format|
-      format.html { redirect_to cards_url, notice: "Card was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to cards_url, notice: "Card was successfully destroyed."
   end
 
   private
+
+    def set_deck
+      @deck = current_user.decks.find(params[:deck_id])
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_card
-      @card = Card.find(params[:id])
+      @card = @deck.cards.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def card_params
-      params.require(:card).permit(:deck_id, :front_text, :back_text, :last_done_at, :done_count)
+      params.require(:card).permit(:front_text, :back_text).merge(deck: @deck, done_count: 0)
     end
 end
