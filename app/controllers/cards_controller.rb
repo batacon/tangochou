@@ -25,7 +25,7 @@ class CardsController < ApplicationController
     @card = Card.new(card_params)
 
     if @card.save
-      redirect_to card_url(@card), notice: "Card was successfully created."
+      redirect_to deck_card_url(@card.deck_id, @card), notice: "Card was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class CardsController < ApplicationController
   # PATCH/PUT /cards/1 or /cards/1.json
   def update
     if @card.update(card_params)
-      redirect_to card_url(@card), notice: "Card was successfully updated."
+      redirect_to deck_card_url(@card.deck_id, @card), notice: "Card was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end

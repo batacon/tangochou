@@ -1,8 +1,18 @@
 <div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing deck</h1>
+  <div class="flex items-center">
+    <%= link_to "←", decks_path, class: "ml-2 rounded-lg py-3 px-5 mr-4 bg-gray-100 inline-block font-medium" %>
+    <h1 class="font-bold text-4xl">単語帳を編集する</h1>
+  </div>
 
   <%= render "form", deck: @deck %>
 
-  <%= link_to "Show this deck", @deck, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  <%= link_to "Back to decks", decks_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <%= link_to 'カードを追加する', new_deck_card_path(@deck), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+
+  <% if @deck.cards.empty? %>
+    <p class="mt-2">カードがありません。</p>
+  <% else %>
+  <div>
+    <%= render partial: 'cards/card', collection: @deck.cards, as: :card %>
+  </div>
+  <% end %>
 </div>
