@@ -6,11 +6,11 @@
 
     <%= render @deck %>
 
-    <%= link_to 'new card', new_deck_card_path(@deck), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+    <%= link_to 'カードを追加する', new_deck_card_path(@deck), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
 
     <%= link_to 'Edit this deck', edit_deck_path(@deck), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
     <div class="inline-block ml-2">
-      <%= button_to 'Destroy this deck', deck_path(@deck), method: :delete, data: { turbo_confirm: '本当にこのデッキを削除しますか？' }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      <%= button_to 'デッキを削除する', deck_path(@deck), method: :delete, data: { turbo_confirm: '本当にこのデッキを削除しますか？' }, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
     </div>
     <%= link_to 'デッキ一覧に戻る', decks_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
   </div>

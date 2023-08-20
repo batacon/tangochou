@@ -1,16 +1,21 @@
-<div class="w-full">
+<div class="w-full p-8 bg-gray-50">
+
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+    <div class="mb-5 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-md" id="notice">
+      <p class="font-medium"><%= notice %></p>
+    </div>
   <% end %>
 
-  <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Decks</h1>
-    <%= link_to 'New deck', new_deck_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  <div class="flex justify-between items-center mb-8">
+    <h1 class="font-bold text-4xl text-gray-800">単語帳一覧</h1>
+    <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "rounded-lg py-2 px-4 bg-red-500 hover:bg-red-600 text-white font-medium" %>
   </div>
 
-  <div id="decks" class="min-w-full">
+  <div id="decks" class="bg-white p-6 rounded-lg shadow-md mb-8">
     <%= render @decks %>
+  </div>
+
+  <div>
+    <%= link_to '新しい単語帳を追加する', new_deck_path, class: "inline-block rounded-lg py-3 px-5 bg-blue-600 hover:bg-blue-700 text-white font-medium shadow-md" %>
   </div>
 </div>

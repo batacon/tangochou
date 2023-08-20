@@ -1,17 +1,12 @@
-<div id="<%= dom_id deck %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= deck.name %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">User:</strong>
-    <%= deck.user_id %>
-  </p>
+<div id="<%= dom_id deck %>" class="flex items-center p-5 border-b border-gray-200 hover:bg-gray-50 transition duration-300 ease-in-out">
+  <div class="flex-grow">
+    <strong class="block text-lg font-semibold mb-1 text-gray-800"><%= deck.name %></strong>
+  </div>
 
   <% if action_name != "show" %>
-    <%= link_to "Show this deck", deck, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this deck', edit_deck_path(deck), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+    <div class="flex items-center space-x-3">
+      <%= link_to "解く！", deck, class: "rounded-lg py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium" %>
+      <%= link_to '編集', edit_deck_path(deck), class: "rounded-lg py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-white font-medium" %>
+    </div>
   <% end %>
 </div>
